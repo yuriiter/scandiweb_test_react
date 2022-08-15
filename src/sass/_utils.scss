@@ -47,3 +47,47 @@
     }
   }
 }
+
+.secondary__button {
+  width: 279px;
+  padding: 16px 63px;
+  text-decoration: none;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 1em;
+  color: $--c-black;
+  text-transform: uppercase;
+  background-color: $--c-white;
+  display: inline-block;
+  border: 1px solid $--c-black;
+  cursor: pointer;
+  margin-top: 31px;
+  text-align: center;
+
+
+  & > span {
+    text-align: center;
+  }
+}
+
+.primary__button {
+  width: 279px;
+  padding: 16px 63px;
+  text-decoration: none;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 1em;
+  color: $--c-white;
+  text-transform: uppercase;
+  background-color: $--c-primary;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  margin-top: 31px;
+  text-align: center;
+
+
+  & > span {
+    text-align: center;
+  }
+}

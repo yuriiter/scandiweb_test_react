@@ -118,6 +118,16 @@
   width: 325px;
   padding: 32px 16px;
 
+  &-buttons {
+    column-gap: 12px  ;
+
+    .secondary__button, .primary__button {
+      font-size: 0.875em;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
   &-heading {
     h4, span {
       font-family: 'Raleway', sans-serif;
@@ -147,6 +157,7 @@
           color: $--c-text;
 
           & > h4 {
+            line-height: 23.7px;
             font-weight: 300;
           }
 
@@ -209,6 +220,21 @@
           height: 190px;
           object-fit: cover;
         }
+      }
+    }
+  }
+
+  &-total {
+    margin-top: 41px;
+
+    span {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 1em;
+      line-height: 1.125;
+
+      &:last-child {
+        font-weight: 700;
       }
     }
   }

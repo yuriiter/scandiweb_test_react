@@ -11,9 +11,11 @@ class Cart extends Component {
           <section className="cart">
             <div className="container">
               <h2 className={"cart__title"}>cart</h2>
-              <div className="cart__items row splitter">
-                <CartItem />
-                <CartItem />
+              <div className="cart__items row">
+                <div className="cart__items-wrapper px-20 splitter">
+                  <CartItem />
+                  <CartItem />
+                </div>
               </div>
 
               <div className="cart__price-checkout d-flex">
@@ -30,7 +32,7 @@ class Cart extends Component {
                 </div>
               </div>
 
-              <button className="info__button">
+              <button className="primary__button">
                 <span>ORDER</span>
               </button>
 

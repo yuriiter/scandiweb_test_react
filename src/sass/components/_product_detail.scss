@@ -22,6 +22,10 @@
 
     width: 332px;
 
+    .primary__button {
+      width: 100%;
+    }
+
     &-title, &-subtitle {
       font-family: "Raleway", sans-serif;
       font-size: 1.875em;
@@ -163,27 +167,6 @@
     }
   }
 
-  &__button {
-    width: 100%;
-    padding: 16px 63px;
-    text-decoration: none;
-    font-family: "Raleway", sans-serif;
-    font-weight: 600;
-    font-size: 1em;
-    color: $--c-white;
-    text-transform: uppercase;
-    background-color: $--c-primary;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-    margin-top: 31px;
-    text-align: center;
-
-
-    & > span {
-      text-align: center;
-    }
-  }
 
   &__description {
     font-family: 'Roboto', sans-serif;

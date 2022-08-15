@@ -42,6 +42,21 @@ class NavigationCart extends Component {
               <NavigationCartItem />
               <NavigationCartItem />
             </ul>
+
+            <div className="cart__wrapper-total d-flex justify-content-between">
+              <span>Total</span>
+              <span>$200.00</span>
+            </div>
+
+            <div className="cart__wrapper-buttons d-flex justify-content-between">
+              <button className="secondary__button">
+                <span>View bag</span>
+              </button>
+              <button className="primary__button">
+                <span>CHECK OUT</span>
+              </button>
+            </div>
+
           </div>
         ) : null}
       </div>

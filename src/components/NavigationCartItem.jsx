@@ -11,6 +11,7 @@ class NavigationCartItem extends Component {
       <li className="d-flex">
         <div className="cart__info">
           <h4>Name</h4>
+          <h4>Name</h4>
           <span>$50.00</span>
           <div className="cart__size">
             <span>Size:</span>

@@ -47,7 +47,7 @@ class ProductDetail extends Component {
                     <span className={"info__price-value"}>$50.00</span>
                   </div>
 
-                  <button className="info__button">
+                  <button className="primary__button">
                     <span>ADD TO CART</span>
                   </button>
 

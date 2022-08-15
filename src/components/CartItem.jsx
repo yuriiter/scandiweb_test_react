@@ -6,7 +6,7 @@ import cartImage from "../assets/img/cart_navigation_placeholder.jpg";
 class CartItem extends Component {
   render () {
     return (
-        <div className="cart__item-wrapper px-20">
+        <div className="cart__item-wrapper">
           <div className="cart__item d-flex justify-content-between">
             <div className="cart__item-detail__info">
               <h2 className="cart__item-detail__info-title">Apollo</h2>
