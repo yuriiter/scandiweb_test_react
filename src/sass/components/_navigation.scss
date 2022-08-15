@@ -203,36 +203,6 @@
           }
         }
 
-        &__counter {
-          flex-direction: column;
-          justify-content: space-between;
-
-          & > button {
-            background-color: $--c-white;
-            width: 24px;
-            height: 24px;
-            border: 1px solid $--c-text;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            & > img {
-              width: 8px;
-              height: 8px;
-            }
-
-          }
-
-          & > span {
-            font-family: "Raleway", sans-serif;
-            font-weight: 500;
-            font-size: 1em;
-            line-height: 1.6;
-            color: $--c-text;
-            text-align: center;
-          }
-        }
 
         &__image {
           width: 121px;

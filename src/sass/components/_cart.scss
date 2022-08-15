@@ -1,0 +1,140 @@
+.cart {
+  @extend .product-detail;
+
+  &__count {
+    text-align: center;
+  }
+
+  .cart__counter {
+    & > button {
+      width: 45px;
+      height: 45px;
+
+      & > img {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
+  &__counter {
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 24px;
+
+    & > button {
+      background-color: $--c-white;
+      width: 24px;
+      height: 24px;
+      border: 1px solid $--c-text;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > img {
+        width: 8px;
+        height: 8px;
+      }
+
+    }
+
+    & > span {
+      font-family: "Raleway", sans-serif;
+      font-weight: 500;
+      font-size: 1em;
+      line-height: 1.6;
+      color: $--c-text;
+      text-align: center;
+    }
+  }
+
+  &__item {
+    width: 100%;
+    position: relative;
+
+    &-wrapper {
+      width: 100%;
+    }
+
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+    &-detail__info {
+
+      &-title {
+        @extend .product-detail__info-title;
+      }
+
+      &-subtitle {
+        @extend .product-detail__info-subtitle;
+      }
+
+      .info {
+
+        &__price, &__size {
+          margin-top: 20px;
+        }
+
+        &__color {
+          margin-top: 16px;
+        }
+
+      }
+    }
+
+  }
+
+  &__image {
+    height: 288px;
+    width: 200px;
+
+    & > img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 2em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  &__items {
+    margin-top: 55px;
+  }
+
+  &__price-checkout {
+    column-gap: 8px;
+    margin-top: 32px;
+
+    &--left, &--right {
+      p {
+        font-family: 'Raleway', sans-serif;
+        font-weight: 400;
+        font-size: 1.5em;
+        line-height: 1.166;
+        margin-bottom: 8px;
+      }
+    }
+
+    &--left p:last-child {
+      font-weight: 500;
+    }
+
+    &--right {
+      p {
+        font-weight: 700;
+      }
+    }
+
+  }
+
+  .info__button {
+    width: 279px;
+  }
+}
