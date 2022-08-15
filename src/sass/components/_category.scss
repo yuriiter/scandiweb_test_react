@@ -1,0 +1,29 @@
+.category {
+  padding-top: 80px;
+  padding-bottom: 191px;
+  position: relative;
+
+  &__headline {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 2.625em;
+    margin: 0;
+    line-height: 1.6;
+    color: $--c-black;
+  }
+
+  &__cards {
+    margin-top: 100px;
+    gap: 40px;
+  }
+
+  &__overlay {
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#393748, 0.22);
+  }
+
+}

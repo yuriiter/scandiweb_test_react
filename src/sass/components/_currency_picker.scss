@@ -1,0 +1,31 @@
+.choose-currency__picker {
+  z-index: 1;
+  flex-direction: column;
+  row-gap: 8px;
+  background-color: $--c-white;
+  position: absolute;
+  bottom: -8px;
+  left: -20px;
+  transform: translate(0, 100%);
+  width: 114px;
+  filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+
+
+  & > li  {
+    padding: 8px 0;
+    padding-left: 20px;
+    &:hover {
+      background-color: #EEEEEE;
+    }
+
+    & > span {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      line-height: 1.6;
+      font-size: 1.125em;
+      color: $--c-text;
+      cursor: pointer;
+
+    }
+  }
+}
