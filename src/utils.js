@@ -21,8 +21,3 @@ export const totalPrice = ( cart, currencySymbol ) => {
     return total
 }
 
-
-export const combinedId = product => {
-    return product.id +
-        product.attributes.map(attributeSet => attributeSet.pickId).join(";")
-}

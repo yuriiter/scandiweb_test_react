@@ -1,6 +1,5 @@
 import {createStore} from 'redux'
 
-import {combinedId} from "../utils";
 
 const reducerFn = (state = {
   cart: [],
@@ -10,9 +9,7 @@ const reducerFn = (state = {
 
   if(action.type === "ADD_ITEM") {
     const oldState = {...state}
-    const itemId = combinedId(action.payload)
-    const currentProductInCart = oldState.cart
-        .find(product => combinedId(product) === combinedId(action.payload))
+    const currentProductInCart = oldState.cart.find(product => product.id === action.payload.id)
 
     if(!currentProductInCart) {
       const card = action.payload
@@ -30,9 +27,7 @@ const reducerFn = (state = {
 
   if(action.type === "REMOVE_ITEM") {
     const oldState = {...state}
-    const itemId = combinedId(action.payload)
-    const currentProductInCart = oldState.cart
-        .find(product => combinedId(product) === combinedId(action.payload))
+    const currentProductInCart = oldState.cart.find(product => product.id === action.payload.id)
 
     if(!currentProductInCart) {
       return oldState
@@ -46,13 +41,6 @@ const reducerFn = (state = {
     oldState.cartQuantity -= 1
     oldState.cart = oldState.cart.map(product => {return {...product}})
     return oldState;
-  }
-
-
-
-  if(action.type === "PICK_ATTRIBUTE") {
-    
-
   }
 
 
