@@ -86,6 +86,9 @@
   margin-top: 31px;
   text-align: center;
 
+  &:disabled {
+    background-color: #dedede;
+  }
 
   & > span {
     text-align: center;

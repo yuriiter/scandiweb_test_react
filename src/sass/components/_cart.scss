@@ -20,7 +20,6 @@
   &__counter {
     flex-direction: column;
     justify-content: space-between;
-    margin-right: 24px;
 
     & > button {
       background-color: $--c-white;
@@ -76,7 +75,7 @@
           margin-top: 20px;
         }
 
-        &__color {
+        &__swatch {
           margin-top: 16px;
         }
 

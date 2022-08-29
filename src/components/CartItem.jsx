@@ -2,6 +2,7 @@ import { Component } from 'react'
 import plusIcon from "../assets/img/plus.svg";
 import minusIcon from "../assets/img/minus.svg";
 import cartImage from "../assets/img/cart_navigation_placeholder.jpg";
+import {connect} from "react-redux";
 
 class CartItem extends Component {
   render () {
@@ -9,11 +10,18 @@ class CartItem extends Component {
         <div className="cart__item-wrapper">
           <div className="cart__item d-flex justify-content-between">
             <div className="cart__item-detail__info">
-              <h2 className="cart__item-detail__info-title">Apollo</h2>
-              <h3 className="cart__item-detail__info-subtitle">Running Short</h3>
+              <h2 className="cart__item-detail__info-title">{this.state.product?.brand}</h2>
+              <h3 className="cart__item-detail__info-subtitle">{this.state.product?.name}</h3>
 
               <div className="info__price">
-                <span className={"info__price-value"}>$50.00</span>
+                <span className={"info__price-value"}>
+                      {
+                          this.props.currentCurrency?.symbol
+                          + "" + this.state.product?.prices?.find(price => {
+                            return price.currency.symbol === this.props.currentCurrency.symbol
+                          })?.amount
+                      }
+                </span>
               </div>
 
               <div className="info__size">
@@ -55,4 +63,11 @@ class CartItem extends Component {
   }
 }
 
-export default CartItem
+
+const mapStateToProps = state => {
+  return {
+    currentCurrency: state.currentCurrency
+  }
+}
+
+export default connect(mapStateToProps)(CartItem)

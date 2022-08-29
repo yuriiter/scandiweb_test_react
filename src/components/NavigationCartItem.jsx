@@ -1,48 +1,96 @@
 import { Component } from 'react'
+import {connect} from "react-redux";
 
-import cartImage from '../assets/img/cart_navigation_placeholder.jpg'
 import plusIcon from '../assets/img/plus.svg'
 import minusIcon from '../assets/img/minus.svg'
 
+import {luminance} from '../utils'
+
+
 
 class NavigationCartItem extends Component {
-  render () {
-    return (
-      <li className="d-flex">
-        <div className="cart__info">
-          <h4>Name</h4>
-          <h4>Name</h4>
-          <span>$50.00</span>
-          <div className="cart__size">
-            <span>Size:</span>
-            <div className="cart__size--items d-flex">
-              <div className="cart__size--items--active">xs</div>
-              <div>s</div>
-              <div>l</div>
-              <div>xl</div>
-            </div>
-          </div>
-          <div className="cart__color">
-            <span>Color:</span>
-            <div className="cart__color--items d-flex">
-              <div className="cart__color--items--active" style={{backgroundColor: "#D3D2D5"}}></div>
-              <div className="" style={{backgroundColor: "#2B2B2B"}}></div>
-              <div className="" style={{backgroundColor: "#0F6450"}}></div>
-              <div className="" style={{backgroundColor: "#"}}></div>
-            </div>
-          </div>
-        </div>
-        <div className="cart__counter d-flex">
-          <button><img src={plusIcon} alt="Increment counter" /></button>
-          <span className="cart__count">3</span>
-          <button><img src={minusIcon} alt="Decrement counter" /></button>
-        </div>
-        <div className="cart__image">
-          <img src={cartImage} alt="" />
-        </div>
-      </li>
-    )
-  }
+
+    pickAttribute(attributeSetId, itemId) {
+        const attributes = [ ...this.state.product?.attributes ]
+        attributes.find(attributeSet => attributeSet.id === attributeSetId).pickId = itemId
+        this.setState({...this.state, attributes: attributes})
+    }
+
+    incrementQuantity = () => {
+        this.props.dispatch({type: "ADD_ITEM", payload: {id: this.props.product?.id}})
+    }
+
+    decrementQuantity = () => {
+        this.props.dispatch({type: "REMOVE_ITEM", payload: {id: this.props.product?.id}})
+    }
+
+
+    render () {
+        return (
+            <li className="d-flex">
+                <div className="cart__info">
+                    <h4>{this.props.product?.brand}</h4>
+                    <h4>{this.props.product?.name}</h4>
+                    <span>
+            {
+                this.props.currentCurrency?.symbol
+                + "" + this.props.product?.prices.find(price => {
+                    return price?.currency.symbol === this.props.currentCurrency?.symbol
+                }).amount.toFixed(2)
+            }
+          </span>
+
+                    {this.props.product?.attributes.map(attributeSet => (
+                            <div key={attributeSet.id} className={`cart__${attributeSet.type}`}>
+                                <span>{ attributeSet.name }</span>
+                                <div className={ `cart__${attributeSet.type}--items d-flex` }>
+                                    {
+                                        attributeSet.items?.map(( item, idx ) => {
+                                            const style = {}
+                                            if(attributeSet.type === "swatch") {
+                                                style.backgroundColor = item.value
+                                                if(luminance(item.value) > 0.95) {
+                                                    style.borderColor = "#1D1F22"
+                                                }
+                                            }
+
+                                            return (
+                                                <div
+                                                    className={attributeSet.pickId === item.id ?
+                                                        `cart__${attributeSet.type}--items--active` : null}
+                                                    style={style}
+                                                    onClick={() => this.pickAttribute(attributeSet.id, item.id)}
+                                                    key={idx}
+                                                >
+                                                    { attributeSet.type !== "swatch" ? <span>{item.value}</span> : null }
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        )
+                    )
+                    }
+
+                </div>
+                <div className="cart__counter d-flex">
+                    <button onClick={this.incrementQuantity}><img src={plusIcon} alt="Increment counter" /></button>
+                    <span className="cart__count">{this.props.product?.pickedQuantity}</span>
+                    <button onClick={this.decrementQuantity}><img src={minusIcon} alt="Decrement counter" /></button>
+                </div>
+                <div className="cart__image">
+                    <img src={this.props.product?.gallery[0]} alt="" />
+                </div>
+            </li>
+        )
+    }
 }
 
-export default NavigationCartItem
+const mapStateToProps = state => {
+    return {
+        currentCurrency: state.currentCurrency
+    }
+}
+
+export default connect(mapStateToProps)(NavigationCartItem)

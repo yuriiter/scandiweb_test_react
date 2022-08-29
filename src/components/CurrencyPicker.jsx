@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 
 import pickerArrowIcon from '../assets/img/picker_arrow.svg'
+import {GET_CURRENCIES} from "../GraphQL/Queries";
+import { client as apolloClient } from "../App"
+import {connect} from "react-redux";
 
 class CurrencyPicker extends Component {
   clickableRef = React.createRef(null)
 
-  currencies = [
-    {sign: "$", name: "USD"},
-    {sign: "€", name: "EUR"},
-    {sign: "¥", name: "JPY"}
-  ]
-
   state = {
-    currentCurrency: this.currencies[0],
+    currencies: [],
     openModal: false
   }
 
@@ -22,19 +19,31 @@ class CurrencyPicker extends Component {
   }
 
   checkIfClickedOutside = e => {
-    if(this.state.openModal && this.clickableRef.current && !this.clickableRef.current.contains(e.target)) {
+    if(this.state.openModal &&
+        this.clickableRef.current &&
+        !this.clickableRef.current.contains(e.target)) {
+
       this.setState({openModal: false})
     }
   }
 
   chooseCurrency = idx => {
-    const newCurrency = this.currencies[idx]
-    this.setState({currentCurrency: newCurrency})
+    const newCurrency = this.state.currencies[idx]
+    this.props.dispatch({type: "SET_CURRENT_CURRENCY",
+      payload: newCurrency
+    })
   }
 
 
   componentDidMount() {
     document.addEventListener("mousedown", this.checkIfClickedOutside)
+    apolloClient.query({query: GET_CURRENCIES})
+        .then(response => {
+          this.props.dispatch({type: "SET_CURRENT_CURRENCY",
+            payload: response.data.currencies[0]
+          })
+          this.setState({...this.state, currencies: response.data.currencies})
+        })
   }
 
   componentWillUnmount() {
@@ -45,12 +54,12 @@ class CurrencyPicker extends Component {
   render () {
     return (
       <div className="navigation__choose-currency" onClick={this.toggleModal} ref={this.clickableRef} >
-        <span className="currency-sign">{this.state.currentCurrency.sign}</span>
+        <span className="currency-sign">{this.props.currentCurrency?.symbol}</span>
         <img className="choose-currency__arrow" src={pickerArrowIcon} alt="Choose currency" style={this.state.openModal ? {transform: "rotateX(180deg)"} : {}} />
         <ul className={"choose-currency__picker " + (this.state.openModal ? "d-flex" : "d-none")}>
-          {this.currencies.map((currency, idx) => (
+          {this.state.currencies.map((currency, idx) => (
             <li key={idx} onClick={() => this.chooseCurrency(idx)} >
-              <span>{currency.sign + " " + currency.name}</span>
+              <span>{currency.symbol + " " + currency.label}</span>
             </li>
           ))}
         </ul>
@@ -59,4 +68,10 @@ class CurrencyPicker extends Component {
   }
 }
 
-export default CurrencyPicker
+const mapStateToProps = state => {
+  return {
+    currentCurrency: state.currentCurrency
+  }
+}
+
+export default connect(mapStateToProps)( CurrencyPicker )

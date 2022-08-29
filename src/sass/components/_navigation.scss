@@ -155,10 +155,16 @@
           font-size: 1em;
           line-height: 160%;
           color: $--c-text;
+          max-width: 120px;
+          max-height: 190px;
 
           & > h4 {
             line-height: 23.7px;
             font-weight: 300;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
+            overflow: hidden;
           }
 
           & > span {
@@ -168,25 +174,29 @@
         }
 
 
-        &__size, &__color {
+        &__text, &__swatch {
           margin-top: 8px;
           font-family: 'Raleway', sans-serif;
           font-size: 0.875em;
           font-weight: 300;
           line-height: 160%;
           color: $--c-text;
+          position: relative;
+          width: 100%;
 
           &--items {
             margin-top: 8px;
             column-gap: 8px;
+            overflow: scroll;
 
             & > div {
 
-              &:is(.cart__size--items--active) {
+              &:is(.cart__text--items--active) {
                 color: $--c-white;
                 background-color: $--c-text;
               }
 
+              flex-shrink: 0;
               font-family: 'Source Sans Pro', sans-serif;
               text-transform: uppercase;
               font-weight: 300;
@@ -201,13 +211,13 @@
           }
         }
 
-        &__color {
+        &__swatch {
           &--items > div {
             width: 16px;
             height: 16px;
-            border: none;
+            border: 1px solid $--c-white;
 
-            &:is(.cart__color--items--active) {
+            &:is(.cart__swatch--items--active) {
               border: 1px solid $--c-white;
               outline: 1px solid $--c-primary;
             }
@@ -216,6 +226,7 @@
 
 
         &__image {
+          flex-shrink: 0;
           width: 121px;
           height: 190px;
           object-fit: cover;

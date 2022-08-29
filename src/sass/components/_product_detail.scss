@@ -50,14 +50,22 @@
 .gallery {
 
   &__photos {
+    max-height: 511px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     row-gap: 40px;
     flex-direction: column;
+
+    &--picked {
+      border: 1px solid $--c-primary;
+    }
 
     & > img {
       width: 80px;
       height: 80px;
       object-fit: cover;
-      border: 2px solid $--c-white;
+      border: 1px solid $--c-white;
+      cursor: pointer;
 
       &:is(.gallery__photos--active) {
         border-color: $--c-black;
@@ -75,7 +83,7 @@
 
 .info {
 
-  &__size, &__color, &__price {
+  &__text, &__swatch, &__price {
     margin-top: 24px;
 
     & > span {
@@ -97,14 +105,14 @@
     }
   }
 
-  &__color {
+  &__swatch {
 
     &-items {
       column-gap: 8px;
 
       & > div {
 
-        &:is(.info__color-items--active) {
+        &:is(.info__swatch-items--active) {
           outline-color: $--c-primary;
         }
 
@@ -116,7 +124,7 @@
     }
   }
 
-  &__size {
+  &__text {
     margin-top: 43px;
 
     &-items {
@@ -175,6 +183,8 @@
     line-height: 159.96%;
     color: $--c-black;
     margin-top: 40px;
+    max-height: 150px;
+    overflow-y: scroll;
   }
 
 }
