@@ -5,16 +5,23 @@ import plusIcon from '../assets/img/plus.svg'
 import minusIcon from '../assets/img/minus.svg'
 
 import {luminance} from '../utils'
-
+import {Link} from "react-router-dom";
 
 
 class NavigationCartItem extends Component {
 
-    pickAttribute(attributeSetId, itemId) {
-        const attributes = [ ...this.state.product?.attributes ]
-        attributes.find(attributeSet => attributeSet.id === attributeSetId).pickId = itemId
-        this.setState({...this.state, attributes: attributes})
+    pickAttribute = (attributeSetId, itemId) => {
+        this.props.dispatch(
+            {
+                type: "PICK_ATTRIBUTE",
+                payload: {
+                    product: this.props.product,
+                    attributeSetId: attributeSetId,
+                    itemId: itemId
+                }
+            })
     }
+
 
     incrementQuantity = () => {
         this.props.dispatch({type: "ADD_ITEM", payload: {id: this.props.product?.id}})
@@ -29,8 +36,10 @@ class NavigationCartItem extends Component {
         return (
             <li className="d-flex">
                 <div className="cart__info">
-                    <h4>{this.props.product?.brand}</h4>
-                    <h4>{this.props.product?.name}</h4>
+                    <Link to={"/product/" + this.props.product?.id}>
+                        <h4>{this.props.product?.brand}</h4>
+                        <h4>{this.props.product?.name}</h4>
+                    </Link>
                     <span>
             {
                 this.props.currentCurrency?.symbol
@@ -79,9 +88,11 @@ class NavigationCartItem extends Component {
                     <span className="cart__count">{this.props.product?.pickedQuantity}</span>
                     <button onClick={this.decrementQuantity}><img src={minusIcon} alt="Decrement counter" /></button>
                 </div>
-                <div className="cart__image">
-                    <img src={this.props.product?.gallery[0]} alt="" />
-                </div>
+                <Link to={"/product/" + this.props.product?.id}>
+                    <div className="cart__image">
+                        <img src={this.props.product?.gallery[0]} alt="" />
+                    </div>
+                </Link>
             </li>
         )
     }

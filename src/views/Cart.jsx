@@ -1,7 +1,9 @@
 import { Component } from 'react'
-import Navigation from '../components/Navigation.jsx'
 import {connect} from "react-redux";
+
+import Navigation from '../components/Navigation.jsx'
 import CartItem from "../components/CartItem";
+
 
 class Cart extends Component {
   render () {
@@ -13,8 +15,9 @@ class Cart extends Component {
               <h2 className={"cart__title"}>cart</h2>
               <div className="cart__items row">
                 <div className="cart__items-wrapper px-20 splitter">
-                  <CartItem />
-                  <CartItem />
+                  {
+                    this.props.cart?.map(product => <CartItem key={product.id} product={product} />)
+                  }
                 </div>
               </div>
 
@@ -47,7 +50,8 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
-    isCartOpen: state.isCartOpen
+    isCartOpen: state.isCartOpen,
+    cart: state.cart
   }
 }
 

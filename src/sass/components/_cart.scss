@@ -63,10 +63,12 @@
 
       &-title {
         @extend .product-detail__info-title;
+        line-height: 0.9;
       }
 
       &-subtitle {
         @extend .product-detail__info-subtitle;
+        line-height: 0.9;
       }
 
       .info {

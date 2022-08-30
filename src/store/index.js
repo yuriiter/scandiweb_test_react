@@ -52,6 +52,30 @@ const reducerFn = (state = {
   }
 
 
+  if(action.type === "PICK_ATTRIBUTE") {
+    const {product, attributeSetId, itemId} = action.payload
+
+    const currentProductInCart = state.cart
+        .find(iteratedProduct => iteratedProduct.id === product.id)
+
+    if(!currentProductInCart) {
+      return state
+    }
+
+
+    const attribute = currentProductInCart.attributes
+        .find(attributeSet => attributeSet.id === attributeSetId)
+    if(attribute.pickId === itemId) {
+      return state
+    }
+
+    attribute.pickId = itemId
+    const oldState = JSON.parse(JSON.stringify(state))
+    return oldState
+  }
+
+
+
   if(action.type === "TOGGLE_CART") {
     const oldState = {...state}
     oldState.isCartOpen = !oldState.isCartOpen

@@ -16,7 +16,7 @@ function App() {
             <BrowserRouter>
                 <Switch>
                     <Route path="/product/:id" render={props => <ProductDetail {...props} />} />
-                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/cart" render={props => <Cart {...props} />} />
                     <Route path="/:category_name?" render={props =>  <Category {...props} />  } />
                 </Switch>
             </BrowserRouter>
