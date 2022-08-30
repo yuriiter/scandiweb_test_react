@@ -165,8 +165,12 @@ class ProductDetail extends Component {
                     </span>
                                 </div>
 
-                                <button className="primary__button" onClick={this.addToCart}>
-                                    <span>ADD TO CART</span>
+                                <button
+                                    className="primary__button"
+                                    disabled={this.state.product?.inStock ? false : true}
+                                    onClick={this.state.product?.inStock ? this.addToCart : null}
+                                >
+                                    <span>{ this.state.product?.inStock ? "ADD TO CART" : "OUT OF STOCK" }</span>
                                 </button>
 
                                 <p className="info__description" dangerouslySetInnerHTML={{__html: this.state.product?.description }}>

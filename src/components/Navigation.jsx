@@ -35,9 +35,9 @@ class Navigation extends Component {
             </nav>
 
             <div className="px-20 navigation__logo">
-              <a href="# ">
+              <Link to="/">
                 <img src={Logo} alt="" />
-              </a>
+              </Link>
             </div>
 
             <div className="px-20 d-flex navigation__buttons">

@@ -28,6 +28,7 @@ class NavigationCart extends Component {
   }
 
   checkOut = () => {
+    this.toggleCart()
     this.props.dispatch({type: "CHECK_OUT"})
   }
 
@@ -66,7 +67,7 @@ class NavigationCart extends Component {
             </div>
 
             <div className="cart__wrapper-buttons d-flex justify-content-between">
-              <Link to={"/cart"} className="secondary__button">
+              <Link to={"/cart"} onClick={this.toggleCart} className="secondary__button">
                 <span>View bag</span>
               </Link>
               <button

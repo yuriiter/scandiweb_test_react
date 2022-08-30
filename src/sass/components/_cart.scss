@@ -89,12 +89,43 @@
   &__image {
     height: 288px;
     width: 200px;
+    position: relative;
 
     & > img {
       height: 100%;
       width: 100%;
       object-fit: cover;
     }
+
+    &-controllers {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+
+      & > button {
+        border: none;
+        width: 24px;
+        height: 24px;
+        background-color: rgba(0, 0, 0, 0.73);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &:nth-child(2) > img {
+          transform: rotate(180deg);
+          position: relative;
+          top: -1px;
+        }
+
+        &:nth-child(1) {
+          margin-right: 8px;
+        }
+
+      }
+
+    }
+
   }
 
   &__title {

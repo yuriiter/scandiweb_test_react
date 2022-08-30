@@ -3,9 +3,15 @@ import {connect} from "react-redux";
 
 import Navigation from '../components/Navigation.jsx'
 import CartItem from "../components/CartItem";
+import {totalPrice} from "../utils";
 
 
 class Cart extends Component {
+  checkOut = () => {
+    this.props.dispatch({type: "CHECK_OUT"})
+  }
+
+
   render () {
     return (
         <div>
@@ -29,13 +35,34 @@ class Cart extends Component {
                 </div>
 
                 <div className="cart__price-checkout--right">
-                  <p>$42.00</p>
-                  <p>3</p>
-                  <p>$200.00</p>
+                  <p>
+                    {
+                        this.props.currentCurrency?.symbol +
+                        (!this.props.cart ||
+                        this.props.cart?.length === 0 ? (0).toFixed(2) :
+                            (totalPrice(this.props.cart, this.props.currentCurrency?.symbol) * 0.21)
+                                .toFixed(2))
+                    }
+                  </p>
+                  <p>{this.props.cartQuantity}</p>
+                  <p>
+                    {
+                        this.props.currentCurrency?.symbol +
+                        (!this.props.cart ||
+                        this.props.cart.length === 0 ? (0).toFixed(2) :
+                            totalPrice(this.props.cart, this.props?.currentCurrency.symbol)
+                                .toFixed(2))
+                    }
+                  </p>
                 </div>
               </div>
 
-              <button className="primary__button">
+              <button
+                  disabled={!this.props.cart || this.props.cart.length === 0 ? true : null}
+                  className="primary__button"
+                  onClick={!this.props.cart || this.props.cart.length === 0 ? null : this.checkOut}
+              >
+
                 <span>ORDER</span>
               </button>
 
@@ -50,6 +77,8 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
+    cartQuantity: state.cartQuantity,
+    currentCurrency: state.currentCurrency,
     isCartOpen: state.isCartOpen,
     cart: state.cart
   }

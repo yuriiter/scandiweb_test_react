@@ -11,7 +11,21 @@ class CartItem extends Component {
     pickedPicture: 0
   }
 
-  pickPicture = idx => this.setState({...this.state, pickedPicture: idx})
+  pickPicture = idx => {
+    if(this.props.product) {
+      let pickedPicture
+      if(this.state.pickedPicture === 0 && idx === -1) {
+        pickedPicture = this.props.product.gallery.length - 1
+      }
+      else {
+        pickedPicture = (this.state.pickedPicture + idx) % this.props.product?.gallery.length
+      }
+      this.setState({
+        ...this.state,
+        pickedPicture: pickedPicture
+      })
+    }
+  }
 
   pickAttribute(attributeSetId, itemId) {
     this.props.dispatch(
@@ -101,11 +115,10 @@ class CartItem extends Component {
               <div className="cart__image">
                 <img
                     src={this.props.product?.gallery[this.state.pickedPicture]}
-                    alt={this.props.product?.description}
                 />
                 <div className="cart__image-controllers d-flex">
-                  <button><img src={arrow} alt=""/></button>
-                  <button><img src={arrow} alt=""/></button>
+                  <button onClick={() => this.pickPicture(-1)}><img src={arrow} alt="" /></button>
+                  <button onClick={() => this.pickPicture( 1)}><img src={arrow} alt="" /></button>
                 </div>
               </div>
             </div>
