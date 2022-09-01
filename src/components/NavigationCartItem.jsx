@@ -19,7 +19,6 @@ class NavigationCartItem extends Component {
 
 
     render () {
-        console.log(this.props.product)
         return (
             <li className="d-flex">
                 <div className="cart__info">

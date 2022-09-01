@@ -2,11 +2,14 @@ import {createStore} from 'redux'
 import {complexKey} from "../utils";
 
 
-const reducerFn = (state = {
-  cart: [],
-  cartQuantity: 0,
+const initialState = {
+  currentCurrency: JSON.parse(localStorage.getItem('currentCurrency')) === null ? undefined : JSON.parse(localStorage.getItem('currentCurrency')),
+  cart: JSON.parse(localStorage.getItem('cart')) === null ? [] : JSON.parse(localStorage.getItem('cart')),
+  cartQuantity: JSON.parse(localStorage.getItem('cartQuantity')) === null ? 0 : JSON.parse(localStorage.getItem('cartQuantity')),
   isCartOpen: false
-}, action) => {
+}
+
+const reducerFn = (state = initialState, action) => {
 
   if(action.type === "ADD_ITEM") {
     const oldState = {...state}
@@ -28,7 +31,6 @@ const reducerFn = (state = {
 
 
   if(action.type === "REMOVE_ITEM") {
-    console.log("sdfjsadlfj")
     const oldState = {...state}
     const key = complexKey(action.payload)
     const currentProductInCart = oldState.cart.find(product => complexKey(product) === key)
@@ -81,5 +83,13 @@ const reducerFn = (state = {
 }
 
 const store = createStore(reducerFn)
+
+window.onbeforeunload = () => {
+  const { cart, currentCurrency, cartQuantity } = store.getState();
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem('currentCurrency', JSON.stringify(currentCurrency));
+  localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
+};
 
 export default store;

@@ -57,7 +57,6 @@ class ProductDetail extends Component {
     addToCart = () => this.props.dispatch({type: "ADD_ITEM", payload: { ...this.state.product }})
 
     render () {
-        // console.log(this.props.cart.map(p => complexKey(p)))
         return (
             <div>
                 <Navigation />
