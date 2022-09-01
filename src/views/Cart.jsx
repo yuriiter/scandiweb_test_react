@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 
 import Navigation from '../components/Navigation.jsx'
 import CartItem from "../components/CartItem";
-import {totalPrice} from "../utils";
+import {complexKey, totalPrice} from "../utils";
 
 
 class Cart extends Component {
@@ -22,7 +22,7 @@ class Cart extends Component {
               <div className="cart__items row">
                 <div className="cart__items-wrapper px-20 splitter">
                   {
-                    this.props.cart?.map(product => <CartItem key={product.id} product={product} />)
+                    this.props.cart?.map(product => <CartItem key={complexKey(product)} product={product} />)
                   }
                 </div>
               </div>

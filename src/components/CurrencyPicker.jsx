@@ -36,9 +36,11 @@ class CurrencyPicker extends Component {
     document.addEventListener("mousedown", this.checkIfClickedOutside)
     apolloClient.query({query: GET_CURRENCIES})
         .then(response => {
-          this.props.dispatch({type: "SET_CURRENT_CURRENCY",
-            payload: response.data.currencies[0]
-          })
+          if(!this.props.currentCurrency) {
+            this.props.dispatch({type: "SET_CURRENT_CURRENCY",
+              payload: response.data.currencies[0]
+            })
+          }
           this.setState({...this.state, currencies: response.data.currencies})
         })
   }

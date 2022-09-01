@@ -9,30 +9,17 @@ import {Link} from "react-router-dom";
 
 
 class NavigationCartItem extends Component {
-
-    pickAttribute = (attributeSetId, itemId) => {
-        this.props.dispatch(
-            {
-                type: "PICK_ATTRIBUTE",
-                payload: {
-                    product: this.props.product,
-                    attributeSetId: attributeSetId,
-                    itemId: itemId
-                }
-            })
-    }
-
-
     incrementQuantity = () => {
-        this.props.dispatch({type: "ADD_ITEM", payload: {id: this.props.product?.id}})
+        this.props.dispatch({type: "ADD_ITEM", payload: this.props.product})
     }
 
     decrementQuantity = () => {
-        this.props.dispatch({type: "REMOVE_ITEM", payload: {id: this.props.product?.id}})
+        this.props.dispatch({type: "REMOVE_ITEM", payload: this.props.product})
     }
 
 
     render () {
+        console.log(this.props.product)
         return (
             <li className="d-flex">
                 <div className="cart__info">
@@ -43,13 +30,13 @@ class NavigationCartItem extends Component {
                     <span>
             {
                 this.props.currentCurrency?.symbol
-                + "" + this.props.product?.prices.find(price => {
+                + "" + this.props.product?.prices?.find(price => {
                     return price?.currency.symbol === this.props.currentCurrency?.symbol
                 }).amount.toFixed(2)
             }
           </span>
 
-                    {this.props.product?.attributes.map(attributeSet => (
+                    {this.props.product?.attributes?.map(attributeSet => (
                             <div key={attributeSet.id} className={`cart__${attributeSet.type}`}>
                                 <span>{ attributeSet.name }</span>
                                 <div className={ `cart__${attributeSet.type}--items d-flex` }>
@@ -68,7 +55,6 @@ class NavigationCartItem extends Component {
                                                     className={attributeSet.pickId === item.id ?
                                                         `cart__${attributeSet.type}--items--active` : null}
                                                     style={style}
-                                                    onClick={() => this.pickAttribute(attributeSet.id, item.id)}
                                                     key={idx}
                                                 >
                                                     { attributeSet.type !== "swatch" ? <span>{item.value}</span> : null }

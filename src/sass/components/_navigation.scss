@@ -178,6 +178,8 @@
   }
 
   &-items {
+    @extend %custom_scrollbar;
+
     row-gap: 40px;
     flex-direction: column;
     margin-top: 32px;
@@ -227,6 +229,8 @@
           width: 100%;
 
           &--items {
+            @extend %custom_scrollbar;
+
             margin-top: 8px;
             column-gap: 8px;
             overflow-x: auto;

@@ -28,24 +28,13 @@ class CartItem extends Component {
     }
   }
 
-  pickAttribute(attributeSetId, itemId) {
-    this.props.dispatch(
-        {
-          type: "PICK_ATTRIBUTE",
-          payload: {
-            product: this.props.product,
-            attributeSetId: attributeSetId,
-            itemId: itemId
-          }
-        })
-  }
 
   incrementQuantity = () => {
-    this.props.dispatch({type: "ADD_ITEM", payload: {id: this.props.product?.id}})
+    this.props.dispatch({type: "ADD_ITEM", payload: this.props.product})
   }
 
   decrementQuantity = () => {
-    this.props.dispatch({type: "REMOVE_ITEM", payload: {id: this.props.product?.id}})
+    this.props.dispatch({type: "REMOVE_ITEM", payload: this.props.product})
   }
 
   render () {
@@ -91,7 +80,6 @@ class CartItem extends Component {
                                           className={attributeSet.pickId === item.id ?
                                               `info__${attributeSet.type}-items--active` : null}
                                           style={style}
-                                          onClick={() => this.pickAttribute(attributeSet.id, item.id)}
                                           key={idx}
                                       >
                                         { attributeSet.type !== "swatch" ? <span>{item.value}</span> : null }
@@ -122,7 +110,10 @@ class CartItem extends Component {
                 <img
                     src={this.props.product?.gallery[this.state.pickedPicture]}
                 />
-                <div className="cart__image-controllers d-flex">
+                <div
+                    className={"cart__image-controllers"}
+                    style={{display: this.props.product?.gallery.length < 2 ? 'none' : 'flex'}}
+                >
                   <button onClick={() => this.pickPicture(-1)}><img src={arrow} alt="" /></button>
                   <button onClick={() => this.pickPicture( 1)}><img src={arrow} alt="" /></button>
                 </div>
