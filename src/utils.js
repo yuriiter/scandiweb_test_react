@@ -13,9 +13,9 @@ export const totalPrice = ( cart, currencySymbol ) => {
 
     let total = 0
     cart.forEach(product => {
-        total += ( product.prices.find(price =>
+        total += ((product.prices?.find(price =>
             price.currency.symbol === currencySymbol)
-            .amount * product.pickedQuantity )
+            .amount || 0) * product.pickedQuantity )
     })
 
     return total

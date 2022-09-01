@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Link} from "react-router-dom";
 
-import {totalPrice} from "../utils";
+import {totalPrice, complexKey} from "../utils";
 import NavigationCartItem from './NavigationCartItem'
 import cartIcon from '../assets/img/cart.svg'
 
@@ -50,7 +50,7 @@ class NavigationCart extends Component {
               
             </div>
             <ul className="cart__wrapper-items d-flex">
-              {this.props.cart?.map(product => <NavigationCartItem key={product.id} product={product} />)}
+              {this.props.cart?.map(product => <NavigationCartItem key={complexKey(product)} product={product} />)}
             </ul>
 
             <div className="cart__wrapper-total d-flex justify-content-between">

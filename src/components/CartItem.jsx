@@ -2,7 +2,7 @@ import { Component } from 'react'
 import {connect} from "react-redux";
 import {Link} from "react-router-dom"
 
-import {luminance} from "../utils";
+import {luminance, complexKey} from "../utils";
 import plusIcon from "../assets/img/plus.svg";
 import minusIcon from "../assets/img/minus.svg";
 import arrow from "../assets/img/slider-arrow-left.svg"

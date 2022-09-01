@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 
 import { client as apolloClient } from "../App"
 import Navigation from '../components/Navigation.jsx'
-import {luminance} from '../utils'
+import {complexKey, luminance} from '../utils'
 import {GET_PRODUCT_DETAIL} from "../GraphQL/Queries";
 
 class ProductDetail extends Component {
@@ -29,33 +29,15 @@ class ProductDetail extends Component {
             apolloClient.query({query: GET_PRODUCT_DETAIL(this.props.match?.params.id)})
                 .then(response => {
                     const productDetail = { ...response.data.product }
-                    const currentProductInCart = this.props.cart.find(productInCart => {
-                        return productInCart.id === productDetail.id
+                    productDetail.attributes = productDetail.attributes.map(attributeSet => {
+                        const changedAttributeSet = { ...attributeSet }
+                        changedAttributeSet.pickId = attributeSet.items[0].id
+                        return changedAttributeSet
                     })
-                    if(currentProductInCart) {
-                        const currentProductInCartAttributes = currentProductInCart.attributes
-                        this.setState({product: currentProductInCart})
-                    }
-                    else {
-                        productDetail.attributes = productDetail.attributes.map(attributeSet => {
-                            const changedAttributeSet = { ...attributeSet }
-                            changedAttributeSet.pickId = attributeSet.items[0].id
-                            return changedAttributeSet
-                        })
-                        this.setState({...this.state, product: productDetail})
-                    }
+                    this.setState({...this.state, product: productDetail})
                 })
         }
 
-        if(prevProps.cart !== this.props.cart) {
-            const currentProductInCart = this.props.cart.find(productInCart => {
-                return productInCart.id === this.state.product.id
-            })
-            if(currentProductInCart) {
-                const currentProductInCartAttributes = currentProductInCart.attributes
-                this.setState({product: currentProductInCart})
-            }
-        }
     }
 
     pickPicture = idx => this.setState({...this.state, pickedPicture: idx})
@@ -64,26 +46,18 @@ class ProductDetail extends Component {
     pickAttributeLocal(attributeSetId, itemId) {
         const attributes = [ ...this.state.product?.attributes ]
         attributes.find(attributeSet => attributeSet.id === attributeSetId).pickId = itemId
-        this.setState({...this.state, attributes: attributes})
+        this.setState({...this.state, attributes: { ...attributes }})
     }
 
     pickAttribute(attributeSetId, itemId) {
         this.pickAttributeLocal(attributeSetId, itemId)
-        this.props.dispatch(
-            {
-                type: "PICK_ATTRIBUTE",
-                payload: {
-                    product: this.state.product,
-                    attributeSetId:attributeSetId,
-                    itemId: itemId
-                }
-            })
     }
 
 
-    addToCart = () => this.props.dispatch({type: "ADD_ITEM", payload: this.state.product})
+    addToCart = () => this.props.dispatch({type: "ADD_ITEM", payload: { ...this.state.product }})
 
     render () {
+        // console.log(this.props.cart.map(p => complexKey(p)))
         return (
             <div>
                 <Navigation />
@@ -167,7 +141,7 @@ class ProductDetail extends Component {
 
                                 <button
                                     className="primary__button"
-                                    disabled={this.state.product?.inStock ? false : true}
+                                    disabled={!this.state.product?.inStock}
                                     onClick={this.state.product?.inStock ? this.addToCart : null}
                                 >
                                     <span>{ this.state.product?.inStock ? "ADD TO CART" : "OUT OF STOCK" }</span>
@@ -190,7 +164,6 @@ class ProductDetail extends Component {
 
 const mapStateToProps = state => {
     return {
-        cart: state.cart,
         isCartOpen: state.isCartOpen,
         currentCurrency: state.currentCurrency
     }

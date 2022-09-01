@@ -1,5 +1,5 @@
 import {createStore} from 'redux'
-
+import {complexKey} from "../utils";
 
 
 const reducerFn = (state = {
@@ -10,10 +10,11 @@ const reducerFn = (state = {
 
   if(action.type === "ADD_ITEM") {
     const oldState = {...state}
-    const currentProductInCart = oldState.cart.find(product => product.id === action.payload.id)
+    const key = complexKey(action.payload)
+    const currentProductInCart = oldState.cart.find(product => complexKey(product) === key)
 
     if(!currentProductInCart) {
-      const card = action.payload
+      const card = JSON.parse(JSON.stringify(action.payload))
       card.pickedQuantity = 1
       oldState.cart.push(card)
     }
@@ -27,8 +28,10 @@ const reducerFn = (state = {
 
 
   if(action.type === "REMOVE_ITEM") {
+    console.log("sdfjsadlfj")
     const oldState = {...state}
-    const currentProductInCart = oldState.cart.find(product => product.id === action.payload.id)
+    const key = complexKey(action.payload)
+    const currentProductInCart = oldState.cart.find(product => complexKey(product) === key)
 
     if(!currentProductInCart) {
       return oldState
@@ -48,8 +51,8 @@ const reducerFn = (state = {
   if(action.type === "PICK_ATTRIBUTE") {
     const {product, attributeSetId, itemId} = action.payload
 
-    const currentProductInCart = state.cart
-        .find(iteratedProduct => iteratedProduct.id === product.id)
+    const key = complexKey(action.payload)
+    const currentProductInCart = state.cart.find(product => complexKey(product) === key)
 
     if(!currentProductInCart) {
       return state
@@ -63,8 +66,7 @@ const reducerFn = (state = {
     }
 
     attribute.pickId = itemId
-    const oldState = JSON.parse(JSON.stringify(state))
-    return oldState
+    return JSON.parse(JSON.stringify(state))
   }
 
 
