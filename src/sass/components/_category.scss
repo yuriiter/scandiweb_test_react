@@ -1,6 +1,7 @@
 .category {
   padding-top: 80px;
   padding-bottom: 191px;
+  min-height: calc(100vh - 80px);
   position: relative;
 
   &__headline {

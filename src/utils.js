@@ -21,3 +21,12 @@ export const totalPrice = ( cart, currencySymbol ) => {
     return total
 }
 
+export const complexKey = product => {
+    if(!product) {
+        return null
+    }
+
+    const productId = product.id
+    const productAttributes = product.attributes || []
+    return productId + productAttributes.map(attributeSet => attributeSet.pickId).join(";")
+}

@@ -1,11 +1,25 @@
 .cart {
   @extend .product-detail;
 
+  &__primary__button {
+    @media (max-width: 632px) {
+      width: 100%;
+    }
+  }
+
   &__count {
     text-align: center;
   }
 
   .cart__counter {
+    &--view {
+      margin-right: 16px;
+      @media (max-width: 632px) {
+        margin-top: 20px;
+        margin-right: 0;
+      }
+    }
+
     & > button {
       width: 45px;
       height: 45px;
@@ -20,6 +34,19 @@
   &__counter {
     flex-direction: column;
     justify-content: space-between;
+
+    &--view {
+      @media (max-width: 632px) {
+        flex-direction: row;
+      }
+
+      & > span {
+        @media (max-width: 632px) {
+          vertical-align: middle;
+          line-height: 45px;
+        }
+      }
+    }
 
     & > button {
       background-color: $--c-white;
@@ -51,15 +78,31 @@
   &__item {
     width: 100%;
     position: relative;
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+
+    @media (max-width: 632px) {
+      flex-direction: column;
+    }
 
     &-wrapper {
       width: 100%;
     }
 
-    padding-top: 24px;
-    padding-bottom: 24px;
+    &-gallery {
+      &--view {
+        @media (max-width: 632px) {
+          flex-direction: column-reverse;
+          margin-top: 40px;
+        }
+      }
+    }
 
     &-detail__info {
+      & > a {
+        text-decoration: none;
+      }
 
       &-title {
         @extend .product-detail__info-title;
@@ -91,16 +134,25 @@
     width: 200px;
     position: relative;
 
+    @media (max-width: 632px) {
+      width: 100%;
+    }
+
     & > img {
       height: 100%;
       width: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     &-controllers {
       position: absolute;
       bottom: 16px;
       right: 16px;
+
+      @media (max-width: 632px) {
+        bottom: 24px;
+        right: 24px;
+      }
 
       & > button {
         border: none;
@@ -112,6 +164,10 @@
         align-items: center;
         cursor: pointer;
 
+        @media (max-width: 632px) {
+          transform: scale(2);
+        }
+
         &:nth-child(2) > img {
           transform: rotate(180deg);
           position: relative;
@@ -120,6 +176,10 @@
 
         &:nth-child(1) {
           margin-right: 8px;
+
+          @media (max-width: 632px) {
+            margin-right: 50px;
+          }
         }
 
       }

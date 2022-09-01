@@ -16,7 +16,7 @@ class Cart extends Component {
     return (
         <div>
           <Navigation />
-          <section className="cart">
+          <section className="cart" style={{paddingBottom: "274px"}}>
             <div className="container">
               <h2 className={"cart__title"}>cart</h2>
               <div className="cart__items row">
@@ -59,7 +59,7 @@ class Cart extends Component {
 
               <button
                   disabled={!this.props.cart || this.props.cart.length === 0 ? true : null}
-                  className="primary__button"
+                  className="primary__button cart__primary__button"
                   onClick={!this.props.cart || this.props.cart.length === 0 ? null : this.checkOut}
               >
 

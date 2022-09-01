@@ -1,26 +1,31 @@
 .product-detail {
+  min-height: calc(100vh - 80px);
   padding-top: 80px;
-  padding-bottom: 191px;
   position: relative;
 
   &__gallery {
     justify-content: flex-start;
     column-gap: 40px;
-    width: 58.80%;
+
+    @media (max-width: 1120px) {
+      width: 50%;
+    }
 
     @media (max-width: 805px) {
       width: 100%;
+      flex-direction: column;
+      row-gap: 20px;
     }
   }
 
   &__info {
+    width: 332px;
+    flex-shrink: 0;
 
     @media (max-width: 805px) {
       width: 100%;
       margin-top: 30px;
     }
-
-    width: 332px;
 
     .primary__button {
       width: 100%;
@@ -44,17 +49,31 @@
 
   &__spacer {
     width: 9.77%;
+
+    @media (max-width: 1120px) {
+      display: none;
+    }
   }
 }
 
 .gallery {
 
   &__photos {
+    flex-shrink: 0;
     max-height: 511px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     row-gap: 40px;
     flex-direction: column;
+    padding-right: 20px;
+
+    @media (max-width: 805px) {
+      max-width: 100%;
+      overflow-y: hidden;
+      overflow-x: auto;
+      flex-direction: row;
+      padding-right: 0;
+    }
 
     &--picked {
       border: 1px solid $--c-primary;
@@ -63,7 +82,7 @@
     & > img {
       width: 80px;
       height: 80px;
-      object-fit: cover;
+      object-fit: contain;
       border: 1px solid $--c-white;
       cursor: pointer;
 
@@ -77,7 +96,18 @@
     width: 610px;
     max-width: 610px;
     height: 511px;
-    object-fit: cover;
+    object-fit: contain;
+
+    @media (max-width: 1120px) {
+      width: calc(100% - 100px);
+    }
+
+    @media (max-width: 805px) {
+      width: 100%;
+    }
+    @media (max-width: 610px) {
+      height: 300px;
+    }
   }
 }
 
@@ -131,6 +161,14 @@
       column-gap: 12px;
       width: 332px;
 
+      @media (max-width: 632px) {
+        max-width: 100%;
+        overflow-x: auto;
+        & > div {
+          flex-shrink: 0;
+        }
+      }
+
       &--active {
         background-color: $--c-black;
 
@@ -141,6 +179,7 @@
 
       & > div {
         width: 63px;
+        min-width: fit-content;
         height: 45px;
         text-transform: uppercase;
         border: 1px solid $--c-black;
@@ -153,6 +192,7 @@
           font-family: 'Source Sans Pro', sans-serif;
           font-weight: 400;
           font-size: 1em;
+          padding: 10px;
         }
 
       }
@@ -184,7 +224,7 @@
     color: $--c-black;
     margin-top: 40px;
     max-height: 150px;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
 }

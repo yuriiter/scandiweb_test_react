@@ -1,6 +1,7 @@
 import {createStore} from 'redux'
 
 
+
 const reducerFn = (state = {
   cart: [],
   cartQuantity: 0,
@@ -44,14 +45,6 @@ const reducerFn = (state = {
   }
 
 
-  if(action.type === "CHECK_OUT") {
-    const oldState = {...state}
-    oldState.cart = []
-    oldState.cartQuantity = 0
-    return oldState
-  }
-
-
   if(action.type === "PICK_ATTRIBUTE") {
     const {product, attributeSetId, itemId} = action.payload
 
@@ -71,6 +64,15 @@ const reducerFn = (state = {
 
     attribute.pickId = itemId
     const oldState = JSON.parse(JSON.stringify(state))
+    return oldState
+  }
+
+
+
+  if(action.type === "CHECK_OUT") {
+    const oldState = {...state}
+    oldState.cart = []
+    oldState.cartQuantity = 0
     return oldState
   }
 

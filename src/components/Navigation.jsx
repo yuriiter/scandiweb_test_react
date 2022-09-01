@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, createRef } from 'react'
 import {connect} from "react-redux";
 
 import { client as apolloClient } from "../App";
@@ -9,13 +9,39 @@ import NavigationCart from './NavigationCart.jsx'
 import {Link} from "react-router-dom";
 
 class Navigation extends Component {
-  componentDidMount() {
-   apolloClient.query({query: GET_CATEGORIES})
-        .then(response => {
-          this.props.dispatch({type: "CATEGORIES",
-            payload: response.data.categories.map(category => category.name)})
-        })
+  mobileNavToggleRef = createRef(null)
+  mobileNavListRef = createRef(null)
+  state = {
+    mobileNavOpen: false
   }
+
+  checkIfClickedOutside = e => {
+    if(this.state.mobileNavOpen &&
+        this.mobileNavToggleRef.current &&
+        !this.mobileNavToggleRef.current.contains(e.target) &&
+        e.target !== this.mobileNavListRef.current &&
+        !this.mobileNavListRef.current.contains(e.target)
+    ) {
+
+      this.setState({mobileNavOpen: false})
+    }
+  }
+
+  componentDidMount() {
+    apolloClient.query({query: GET_CATEGORIES})
+       .then(response => {
+         this.props.dispatch({type: "CATEGORIES",
+           payload: response.data.categories.map(category => category.name)})
+       })
+
+    document.addEventListener("mousedown", this.checkIfClickedOutside)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.checkIfClickedOutside)
+  }
+
+  toggleMobileNav = () => this.setState({mobileNavOpen: !this.state.mobileNavOpen})
 
   render () {
     return (
@@ -23,13 +49,24 @@ class Navigation extends Component {
         <div className="container">
           <div className="row">
             <nav className="px-20 navigation__links">
-              <ul className="d-flex">
+              <div
+                  className={ "burger-mobile" + (this.state.mobileNavOpen ? " burger-mobile--active" : "")}
+                  onClick={this.toggleMobileNav}
+                  ref={this.mobileNavToggleRef}
+              >
+                <div className="burger-mobile--items">
+                  <div className="burger-mobile--item"></div>
+                  <div className="burger-mobile--item"></div>
+                  <div className="burger-mobile--item"></div>
+                </div>
+              </div>
+              <ul ref={this.mobileNavListRef}>
                 {this.props.categories?.map((category, idx) => {
                   let href = "/"
                   if(idx !== 0) {
                     href += category
                   }
-                  return <li key={idx}><Link to={href}>{category}</Link></li>
+                  return <li key={idx} onClick={() => this.setState({mobileNavOpen: false})}><Link to={href}>{category}</Link></li>
                 })}
               </ul>
             </nav>

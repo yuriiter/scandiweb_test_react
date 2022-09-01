@@ -13,10 +13,7 @@ class CurrencyPicker extends Component {
     openModal: false
   }
 
-  toggleModal = () => {
-    const openModalNew = !this.state.openModal
-    this.setState({openModal: openModalNew})
-  }
+  toggleModal = () => this.setState({openModal: !this.state.openModal})
 
   checkIfClickedOutside = e => {
     if(this.state.openModal &&
@@ -28,9 +25,9 @@ class CurrencyPicker extends Component {
   }
 
   chooseCurrency = idx => {
-    const newCurrency = this.state.currencies[idx]
+    this.toggleModal()
     this.props.dispatch({type: "SET_CURRENT_CURRENCY",
-      payload: newCurrency
+      payload: this.state.currencies[idx]
     })
   }
 
@@ -53,9 +50,16 @@ class CurrencyPicker extends Component {
 
   render () {
     return (
-      <div className="navigation__choose-currency" onClick={this.toggleModal} ref={this.clickableRef} >
-        <span className="currency-sign">{this.props.currentCurrency?.symbol}</span>
-        <img className="choose-currency__arrow" src={pickerArrowIcon} alt="Choose currency" style={this.state.openModal ? {transform: "rotateX(180deg)"} : {}} />
+      <div className="navigation__choose-currency-wrapper"  ref={this.clickableRef} >
+        <div onClick={this.toggleModal} className="navigation__choose-currency">
+          <span className="currency-sign">{this.props.currentCurrency?.symbol}</span>
+          <img
+              className="choose-currency__arrow"
+              src={pickerArrowIcon}
+              alt="Choose currency"
+              style={this.state.openModal ? {transform: "rotateX(180deg)"} : {}}
+          />
+        </div>
         <ul className={"choose-currency__picker " + (this.state.openModal ? "d-flex" : "d-none")}>
           {this.state.currencies.map((currency, idx) => (
             <li key={idx} onClick={() => this.chooseCurrency(idx)} >

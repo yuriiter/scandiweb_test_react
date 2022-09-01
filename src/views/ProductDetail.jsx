@@ -88,11 +88,11 @@ class ProductDetail extends Component {
             <div>
                 <Navigation />
                 <section className="product-detail">
-                    <div className="container">
+                    <div className="container" style={{paddingBottom: "178px"}}>
                         <div className="row">
 
                             <div className="product-detail__gallery d-flex px-20">
-                                <div style={{paddingRight: "20px"}} className="gallery__photos d-flex">
+                                <div className="gallery__photos d-flex">
                                     {
                                         this.state.product?.gallery?.map(( pic, idx ) => (
                                             <img

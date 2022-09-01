@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import {connect} from "react-redux";
+import {Link} from "react-router-dom"
 
 import {luminance} from "../utils";
 import plusIcon from "../assets/img/plus.svg";
@@ -52,8 +53,10 @@ class CartItem extends Component {
         <div className="cart__item-wrapper">
           <div className="cart__item d-flex justify-content-between">
             <div className="cart__item-detail__info">
-              <h2 className="cart__item-detail__info-title">{this.props.product?.brand}</h2>
-              <h3 className="cart__item-detail__info-subtitle">{this.props.product?.name}</h3>
+              <Link to={"/product/" + this.props.product?.id}>
+                <h2 className="cart__item-detail__info-title">{this.props.product?.brand}</h2>
+                <h3 className="cart__item-detail__info-subtitle">{this.props.product?.name}</h3>
+              </Link>
 
               <div className="info__price">
                 <span className={"info__price-value"}>
@@ -106,8 +109,11 @@ class CartItem extends Component {
 
             </div>
 
-            <div className="cart__item-gallery d-flex">
-              <div style={{marginRight: "16px"}} className="cart__counter d-flex flex-direction-column justify-content-between">
+            <div className="cart__item-gallery cart__item-gallery--view d-flex">
+              <div
+                  className="cart__counter cart__counter--view d-flex
+                  flex-direction-column justify-content-between"
+              >
                 <button onClick={this.incrementQuantity}><img src={plusIcon} alt="Increment counter" /></button>
                 <span className="cart__count">{this.props.product?.pickedQuantity}</span>
                 <button onClick={this.decrementQuantity}><img src={minusIcon} alt="Decrement counter" /></button>
