@@ -16,7 +16,7 @@ class Cart extends Component {
     return (
         <div>
           <Navigation />
-          <section className="cart" style={{paddingBottom: "274px"}}>
+          <section className="cart">
             <div className="container">
               <h2 className={"cart__title"}>cart</h2>
               <div className="cart__items row">

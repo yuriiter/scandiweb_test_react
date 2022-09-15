@@ -61,7 +61,7 @@ class ProductDetail extends Component {
             <div>
                 <Navigation />
                 <section className="product-detail">
-                    <div className="container" style={{paddingBottom: "178px"}}>
+                    <div className="container">
                         <div className="row">
 
                             <div className="product-detail__gallery d-flex px-20">

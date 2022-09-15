@@ -229,11 +229,9 @@
           width: 100%;
 
           &--items {
-            @extend %custom_scrollbar;
-
+            flex-wrap: wrap;
             margin-top: 8px;
-            column-gap: 8px;
-            overflow-x: auto;
+            gap: 8px;
 
             & > div {
 

@@ -3,12 +3,16 @@
   padding-top: 80px;
   position: relative;
 
+  & > .container {
+    padding-bottom: 178px;
+  }
+
   &__gallery {
     justify-content: flex-start;
     column-gap: 40px;
 
     @media (max-width: 1120px) {
-      width: 50%;
+      width: 55%;
     }
 
     @media (max-width: 805px) {
@@ -59,12 +63,7 @@
 .gallery {
 
   &__photos {
-    @extend %custom_scrollbar;
-
     flex-shrink: 0;
-    max-height: 511px;
-    overflow-y: auto;
-    overflow-x: hidden;
     row-gap: 40px;
     flex-direction: column;
     padding-right: 20px;
@@ -135,6 +134,7 @@
 
     &-items {
       display: flex;
+      flex-wrap: wrap;
       margin-top: 8px;
 
       & > div {
@@ -146,7 +146,7 @@
   &__swatch {
 
     &-items {
-      column-gap: 8px;
+      gap: 8px;
 
       & > div {
 
@@ -166,7 +166,7 @@
     margin-top: 43px;
 
     &-items {
-      column-gap: 12px;
+      gap: 12px;
       width: 332px;
 
       @media (max-width: 632px) {
@@ -230,16 +230,12 @@
 
 
   &__description {
-    @extend %custom_scrollbar;
-
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 1em;
     line-height: 159.96%;
     color: $--c-black;
     margin-top: 40px;
-    max-height: 150px;
-    overflow-y: auto;
   }
 }
 

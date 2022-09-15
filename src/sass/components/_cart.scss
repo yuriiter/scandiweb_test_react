@@ -1,5 +1,6 @@
 .cart {
   @extend .product-detail;
+  padding-bottom: 274px;
 
   &__primary__button {
     @media (max-width: 632px) {
