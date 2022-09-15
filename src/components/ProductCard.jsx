@@ -24,8 +24,8 @@ class ProductCard extends Component {
                     <img src={this.props.card?.gallery[0]} alt="" style={this.props.card?.inStock ? {} : {opacity: 0.7}} />
                     {this.props.card?.inStock ? null : (
                         <span className="category__product-card__reason-caption">
-              OUT OF STOCK
-            </span>
+                          OUT OF STOCK
+                        </span>
                     )}
                 </div>
                 <div>

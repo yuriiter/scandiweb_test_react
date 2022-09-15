@@ -34,7 +34,6 @@ class NavigationCart extends Component {
 
 
   render () {
-    console.log(this.props.cartQuantity)
     return (
       <div className="navigation__cart" ref={this.clickableRef}>
         <img src={cartIcon} alt="Open cart" onClick={this.toggleCart} />

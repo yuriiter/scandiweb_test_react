@@ -78,10 +78,18 @@ class ProductDetail extends Component {
                                         ))
                                     }
                                 </div>
-                                <img className="gallery__main"
-                                     src={this.state.product?.gallery && this.state.product?.gallery[this.state.pickedPicture]}
-                                     alt="Main picture of the product"
-                                />
+                                <div className="gallery__main">
+                                    <img className="gallery__main"
+                                         src={this.state.product?.gallery && this.state.product?.gallery[this.state.pickedPicture]}
+                                         alt="Main picture of the product"
+                                         style={this.state.product?.inStock ? null : {opacity: "0.7"}}
+                                    />
+                                    {this.state.product?.inStock ? null : (
+                                        <span className="category__product-card__reason-caption gallery__main__reason-caption">
+                                          OUT OF STOCK
+                                        </span>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="product-detail__info px-20">

@@ -95,10 +95,16 @@
   }
 
   &__main {
+    position: relative;
     width: 610px;
     max-width: 610px;
     height: 511px;
-    object-fit: contain;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
     @media (max-width: 1120px) {
       width: calc(100% - 100px);
@@ -235,6 +241,8 @@
     max-height: 150px;
     overflow-y: auto;
   }
-
 }
 
+//.gallery__main__reason-caption {
+//
+//}
