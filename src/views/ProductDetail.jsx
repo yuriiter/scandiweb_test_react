@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 
 import { client as apolloClient } from "../App"
 import Navigation from '../components/Navigation.jsx'
-import {complexKey, luminance} from '../utils'
+import {luminance} from '../utils'
 import {GET_PRODUCT_DETAIL} from "../GraphQL/Queries";
 
 class ProductDetail extends Component {
@@ -81,7 +81,7 @@ class ProductDetail extends Component {
                                 <div className="gallery__main">
                                     <img className="gallery__main"
                                          src={this.state.product?.gallery && this.state.product?.gallery[this.state.pickedPicture]}
-                                         alt="Main picture of the product"
+                                         alt="Main product"
                                          style={this.state.product?.inStock ? null : {opacity: "0.7"}}
                                     />
                                     {this.state.product?.inStock ? null : (

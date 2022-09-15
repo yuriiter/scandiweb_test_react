@@ -1,5 +1,10 @@
 .cart {
   @extend .product-detail;
+
+  & > .container {
+    padding-bottom: 0;
+  }
+
   padding-bottom: 274px;
 
   &__primary__button {
