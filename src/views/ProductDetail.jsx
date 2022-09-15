@@ -1,10 +1,34 @@
 import { Component } from 'react'
 import {connect} from "react-redux";
+import sanitizeHtml from 'sanitize-html';
 
 import { client as apolloClient } from "../App"
 import Navigation from '../components/Navigation.jsx'
 import {luminance} from '../utils'
 import {GET_PRODUCT_DETAIL} from "../GraphQL/Queries";
+
+
+const defaultOptions = {
+    allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
+    allowedAttributes: {
+        'a': [ 'href' ]
+    },
+    allowedIframeHostnames: ['www.youtube.com']
+};
+
+const sanitize = (dirty, options) => (
+    {
+        __html: sanitizeHtml(dirty, {...defaultOptions, ...options})
+});
+
+class SanitizeHTML extends Component {
+    render() {
+        return (
+            <div dangerouslySetInnerHTML={sanitize(this.props.html, this.props.options)} />
+        )
+    }
+}
+
 
 class ProductDetail extends Component {
     state = {
@@ -154,7 +178,7 @@ class ProductDetail extends Component {
                                     <span>{ this.state.product?.inStock ? "ADD TO CART" : "OUT OF STOCK" }</span>
                                 </button>
 
-                                <p className="info__description" dangerouslySetInnerHTML={{__html: this.state.product?.description }}>
+                                <p className="info__description" dangerouslySetInnerHTML={{__html: sanitizeHtml(this.state.product?.description, defaultOptions)}}>
                                 </p>
                             </div>
 
